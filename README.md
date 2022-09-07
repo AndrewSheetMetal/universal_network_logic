@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-Network Package Adapter provides reusable logic for network calls for the common use cases like caching, retry mechanisms, parsing etc.
+Universial Network Logic provides the skeleton for network calls, caching, parsing and retry logic
 
 ## Features
 
@@ -69,5 +69,12 @@ var result = await readRequest();
 ```
 
 ## Additional information
+
+### Architecture Considerations
+
+#### Usage of Either<L,R> instead of Exceptions
+
+Using Either<L,R> instead of throwing Exceptions has the advantage, that it is much harder to forget to handle the exception cases.
+On the other hand, the direct caller must deal with it, you can not just define a global try catch.
 
 

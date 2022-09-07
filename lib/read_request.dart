@@ -7,25 +7,20 @@ import 'package:universial_network_logic/error/error.dart';
 import 'package:universial_network_logic/error/error_chain.dart';
 import 'package:universial_network_logic/error/network_error.dart';
 import 'package:universial_network_logic/error/parsing_error.dart';
+import 'package:universial_network_logic/model/read_cache_strategy.dart';
 import 'package:universial_network_logic/model/response.dart';
 import 'package:universial_network_logic/model/response_meta_information.dart';
 
-enum ReadCacheStrategy {
-  ///try to make the network Call, if it fails, look into the cache
-  networkFirst,
-
-  ///look for the cache object first, if the requested item does not exist or is expired, the networkCall is done
-  cacheFirst,
-}
-
-class ReadRequest<T extends Object> {
+///Callable class to make a network request to read/get some data
+class ReadRequest<T> {
   final Future<dynamic> Function() networkCall;
 
   ///[updateCache] is invoked, if we get a new valid result from networkCall
-  final void Function(T newValue)? updateCache;
+  final Future<void> Function(T newValue)? updateCache;
   final Future<Either<CacheError, T>> Function()? readFromCache;
 
-  ///if an exception is thrown in networkCall, this function is used to translate it toe
+  ///if an exception is thrown in networkCall, this function is used to translate it to a `NetworkError`
+  ///thats important, because `NetworkError` controls whether the retry logic is used or not
   final NetworkError Function(dynamic exception) networkCallExceptionTranslator;
 
   final Either<ParsingError, T> Function(dynamic value)? parserFunction;
@@ -165,7 +160,8 @@ class ReadRequest<T extends Object> {
           if (parsingResult.isLeft) {
             return ErrorResponse(parsingResult.left);
           } else {
-            updateCache?.call(parsingResult.right);
+            //TODO: is await useful here? Maybe an error callback is better...
+            await updateCache?.call(parsingResult.right);
 
             return SuccessResponse<T>(
               data: parsingResult.right,
