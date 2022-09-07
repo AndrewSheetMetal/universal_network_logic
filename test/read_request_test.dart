@@ -2,14 +2,14 @@ import 'package:either_dart/either.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:retry/retry.dart';
 import 'package:test/test.dart';
-import 'package:universial_network_logic/error/cache_error.dart';
-import 'package:universial_network_logic/error/error_chain.dart';
-import 'package:universial_network_logic/error/network_error.dart';
-import 'package:universial_network_logic/error/parsing_error.dart';
-import 'package:universial_network_logic/model/read_cache_strategy.dart';
-import 'package:universial_network_logic/model/response.dart';
-import 'package:universial_network_logic/model/response_meta_information.dart';
-import 'package:universial_network_logic/read_request.dart';
+import 'package:universal_network_logic/error/cache_error.dart';
+import 'package:universal_network_logic/error/error_chain.dart';
+import 'package:universal_network_logic/error/network_error.dart';
+import 'package:universal_network_logic/error/parsing_error.dart';
+import 'package:universal_network_logic/model/read_cache_strategy.dart';
+import 'package:universal_network_logic/model/response.dart';
+import 'package:universal_network_logic/model/response_meta_information.dart';
+import 'package:universal_network_logic/read_request.dart';
 
 void main() async {
   group(

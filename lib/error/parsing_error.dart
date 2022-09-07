@@ -1,4 +1,4 @@
-import 'package:universial_network_logic/error/error.dart';
+import 'package:universal_network_logic/error/error.dart';
 
 class ParsingError extends RequestError {
   final String errorMessage;

@@ -1,5 +1,5 @@
-import 'package:universial_network_logic/error/error.dart';
-import 'package:universial_network_logic/model/response_meta_information.dart';
+import 'package:universal_network_logic/error/error.dart';
+import 'package:universal_network_logic/model/response_meta_information.dart';
 
 abstract class Response<T> {
   void handleResponse({
