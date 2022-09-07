@@ -1,4 +1,4 @@
-import 'package:network_logic_adapter/error/error.dart';
+import 'package:universial_network_logic/error/error.dart';
 
 abstract class CacheError extends RequestError {
   const CacheError();

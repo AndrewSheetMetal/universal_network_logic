@@ -1,14 +1,14 @@
-library network_logic_adapter;
+library universial_network_logic;
 
 import 'package:either_dart/either.dart';
-import 'package:network_logic_adapter/error/cache_error.dart';
-import 'package:network_logic_adapter/error/error.dart';
-import 'package:network_logic_adapter/error/error_chain.dart';
-import 'package:network_logic_adapter/error/network_error.dart';
-import 'package:network_logic_adapter/error/parsing_error.dart';
-import 'package:network_logic_adapter/model/response.dart';
-import 'package:network_logic_adapter/model/response_meta_information.dart';
 import 'package:retry/retry.dart';
+import 'package:universial_network_logic/error/cache_error.dart';
+import 'package:universial_network_logic/error/error.dart';
+import 'package:universial_network_logic/error/error_chain.dart';
+import 'package:universial_network_logic/error/network_error.dart';
+import 'package:universial_network_logic/error/parsing_error.dart';
+import 'package:universial_network_logic/model/response.dart';
+import 'package:universial_network_logic/model/response_meta_information.dart';
 
 enum ReadCacheStrategy {
   ///try to make the network Call, if it fails, look into the cache
