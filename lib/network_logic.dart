@@ -10,14 +10,14 @@ import 'package:universial_network_logic/model/response.dart';
 import 'package:universial_network_logic/read_request.dart';
 
 class NetworkLogic {
-  final ReadCacheStrategy defaultReadCacheStragegy;
+  final ReadCacheStrategy defaultReadCacheStrategy;
   final RetryOptions? defaultRetryOptions;
 
   final NetworkError Function(dynamic exception)? defaultNetworkCallExceptionTranslator;
 
   NetworkLogic({
     this.defaultRetryOptions,
-    this.defaultReadCacheStragegy = ReadCacheStrategy.cacheFirst,
+    this.defaultReadCacheStrategy = ReadCacheStrategy.cacheFirst,
     this.defaultNetworkCallExceptionTranslator,
   });
 
@@ -27,7 +27,7 @@ class NetworkLogic {
     Future<Either<CacheError, T>> Function()? readFromCache,
     NetworkError Function(dynamic exception)? networkCallExceptionTranslator,
     Either<ParsingError, T> Function(dynamic value)? parserFunction,
-    ReadCacheStrategy? cacheStragegy,
+    ReadCacheStrategy? cacheStrategy,
     RetryOptions? retryOptions,
   ) async {
     assert(networkCallExceptionTranslator != null || defaultNetworkCallExceptionTranslator != null);
@@ -38,7 +38,7 @@ class NetworkLogic {
       updateCache: updateCache,
       readFromCache: readFromCache,
       parserFunction: parserFunction,
-      cacheStragegy: cacheStragegy ?? defaultReadCacheStragegy,
+      cacheStragegy: cacheStrategy ?? defaultReadCacheStrategy,
       retryOptions: retryOptions ?? defaultRetryOptions,
     );
 
