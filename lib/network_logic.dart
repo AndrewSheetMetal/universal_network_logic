@@ -1,4 +1,4 @@
-library universial_network_logic;
+library universal_network_logic;
 
 import 'package:either_dart/either.dart';
 import 'package:retry/retry.dart';
