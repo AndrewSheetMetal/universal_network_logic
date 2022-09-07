@@ -1,4 +1,4 @@
-name: universial_network_logic
+name: universal_network_logic
 description: provides the skeleton for network calls, caching, parsing and retry logic
 version: 0.0.1
 homepage:
