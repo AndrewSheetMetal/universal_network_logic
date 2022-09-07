@@ -15,6 +15,8 @@ class NetworkLogic {
 
   final NetworkError Function(dynamic exception)? defaultNetworkCallExceptionTranslator;
 
+  //TODO: MetaInterceptor or broadcast stream would be helpful, to define a global listener to long requests
+
   NetworkLogic({
     this.defaultRetryOptions,
     this.defaultReadCacheStrategy = ReadCacheStrategy.cacheFirst,
