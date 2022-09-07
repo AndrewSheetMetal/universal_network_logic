@@ -468,7 +468,6 @@ void main() async {
                         return i;
                       }
                     },
-                    parserFunction: ,
                     networkCallExceptionTranslator: (e) => NetworkError(
                       type: NetworkErrorType.other,
                       originalException: e,
