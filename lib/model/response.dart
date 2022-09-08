@@ -9,6 +9,22 @@ abstract class Response<T> {
 
   bool get isSuccess;
   bool get isError;
+
+  SuccessResponse get asSuccessResponse {
+    if (this is SuccessResponse) {
+      return this as SuccessResponse;
+    } else {
+      throw Exception("$this is not an Instance of $SuccessResponse. Please check 'isSuccess' before");
+    }
+  }
+
+  ErrorResponse get asErrorResponse {
+    if (this is ErrorResponse) {
+      return this as ErrorResponse;
+    } else {
+      throw Exception("$this is not an Instance of $ErrorResponse. Please check 'isError' before");
+    }
+  }
 }
 
 class SuccessResponse<T> extends Response<T> {
