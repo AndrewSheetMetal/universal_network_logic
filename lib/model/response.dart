@@ -6,6 +6,9 @@ abstract class Response<T> {
     required Function(T data, ResponseMetaInformation metaInformation) onSuccess,
     required Function(RequestError error) onError,
   });
+
+  bool get isSuccess;
+  bool get isError;
 }
 
 class SuccessResponse<T> extends Response<T> {
@@ -25,6 +28,12 @@ class SuccessResponse<T> extends Response<T> {
   }) {
     onSuccess(data, metaInformation);
   }
+
+  @override
+  bool get isError => false;
+
+  @override
+  bool get isSuccess => true;
 }
 
 class ErrorResponse<T> extends Response<T> {
@@ -39,4 +48,10 @@ class ErrorResponse<T> extends Response<T> {
   }) {
     onError(error);
   }
+
+  @override
+  bool get isError => true;
+
+  @override
+  bool get isSuccess => false;
 }
