@@ -31,6 +31,8 @@ class ReadRequest<T> {
 
   final RetryOptions? retryOptions;
 
+  //TODO: Ignore Expired, if network fails
+
   ReadRequest(
     this.networkCall, {
     required this.networkCallExceptionTranslator,

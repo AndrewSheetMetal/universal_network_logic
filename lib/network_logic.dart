@@ -24,14 +24,14 @@ class NetworkLogic {
   });
 
   Future<Response<T>> readRequest<T>(
-    Future<dynamic> Function() networkCall,
+    Future<dynamic> Function() networkCall, {
     Future<void> Function(T newValue)? updateCache,
     Future<Either<CacheError, T>> Function()? readFromCache,
     NetworkError Function(dynamic exception)? networkCallExceptionTranslator,
     Either<ParsingError, T> Function(dynamic value)? parserFunction,
     ReadCacheStrategy? cacheStrategy,
     RetryOptions? retryOptions,
-  ) async {
+  }) async {
     assert(networkCallExceptionTranslator != null || defaultNetworkCallExceptionTranslator != null);
 
     var request = ReadRequest<T>(
