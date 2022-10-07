@@ -1,5 +1,5 @@
-import 'package:universal_network_logic/error/error.dart';
-import 'package:universal_network_logic/model/response_meta_information.dart';
+import 'package:universal_network_logic/src/error/error.dart';
+import 'package:universal_network_logic/src/model/response_meta_information.dart';
 
 abstract class Response<T> {
   void handleResponse({
@@ -10,17 +10,17 @@ abstract class Response<T> {
   bool get isSuccess;
   bool get isError;
 
-  SuccessResponse get asSuccessResponse {
-    if (this is SuccessResponse) {
-      return this as SuccessResponse;
+  SuccessResponse<T> get asSuccessResponse {
+    if (this is SuccessResponse<T>) {
+      return this as SuccessResponse<T>;
     } else {
       throw Exception("$this is not an Instance of $SuccessResponse. Please check 'isSuccess' before");
     }
   }
 
-  ErrorResponse get asErrorResponse {
-    if (this is ErrorResponse) {
-      return this as ErrorResponse;
+  ErrorResponse<T> get asErrorResponse {
+    if (this is ErrorResponse<T>) {
+      return this as ErrorResponse<T>;
     } else {
       throw Exception("$this is not an Instance of $ErrorResponse. Please check 'isError' before");
     }

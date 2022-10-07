@@ -1,4 +1,4 @@
-import 'package:universal_network_logic/error/error.dart';
+import 'package:universal_network_logic/src/error/error.dart';
 
 class NetworkError extends RequestError {
   final dynamic originalException;
