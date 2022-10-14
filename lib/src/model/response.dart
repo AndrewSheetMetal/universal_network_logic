@@ -50,6 +50,15 @@ class SuccessResponse<T> extends Response<T> {
 
   @override
   bool get isSuccess => true;
+
+  //returns a copy of the [SuccessResponse] with the same [ResponseMetaInformation], but with different [data]
+  //can be used then the original data is transformed
+  SuccessResponse<R> copyWithData<R>({required R data}) {
+    return SuccessResponse<R>(
+      data: data,
+      metaInformation: metaInformation,
+    );
+  }
 }
 
 class ErrorResponse<T> extends Response<T> {
@@ -70,4 +79,9 @@ class ErrorResponse<T> extends Response<T> {
 
   @override
   bool get isSuccess => false;
+
+  //returns a copy of the [ErrorResponse] with the same [error], but with other type [R]
+  ErrorResponse<R> copyAs<R>() {
+    return ErrorResponse<R>(error);
+  }
 }
