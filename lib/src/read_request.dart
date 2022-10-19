@@ -31,6 +31,9 @@ class ReadRequest<T> {
 
   final RetryOptions? retryOptions;
 
+  //if given, the [responseHook] is invoked with every [Response]
+  final void Function<T>(Response<T> response)? responseHook;
+
   //TODO: Ignore Expired, if network fails
 
   ReadRequest(
@@ -41,9 +44,18 @@ class ReadRequest<T> {
     this.readFromCache,
     this.retryOptions,
     this.cacheStragegy = ReadCacheStrategy.cacheFirst,
+    this.responseHook,
   });
 
   Future<Response<T>> call() async {
+    var response = await _innerCall();
+
+    responseHook?.call(response);
+
+    return response;
+  }
+
+  Future<Response<T>> _innerCall() async {
     if (cacheStragegy == ReadCacheStrategy.networkFirst || readFromCache == null) {
       var networkCallResult = await _networkCall();
       if (networkCallResult is ErrorResponse && readFromCache != null) {
@@ -59,13 +71,16 @@ class ReadRequest<T> {
               ],
             );
 
-            return ErrorResponse(errorChain);
+            var response = ErrorResponse<T>(errorChain);
+            return response;
           } else {
-            return SuccessResponse<T>(
+            var response = SuccessResponse<T>(
               data: readFromCacheResult.right,
               metaInformation:
                   CacheMetaInformation(), //TODO: would be nice to get more informations about the cached object (expiration date and age, but would make readFromCache more complicated)
             );
+
+            return response;
           }
         } catch (e) {
           //return both errors to make the errors tracable from the outside
@@ -76,21 +91,26 @@ class ReadRequest<T> {
             ],
           );
 
-          return ErrorResponse(errorChain);
+          var response = ErrorResponse<T>(errorChain);
+          return response;
         }
       } else {
-        return networkCallResult;
+        var response = networkCallResult;
+        return response;
       }
     } else {
       var result = await readFromCache!();
 
       if (result.isLeft) {
-        return await _networkCall();
+        var response = await _networkCall();
+        return response;
       } else {
-        return SuccessResponse<T>(
+        var response = SuccessResponse<T>(
           data: result.right,
           metaInformation: CacheMetaInformation(),
         );
+
+        return response;
       }
     }
   }

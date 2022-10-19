@@ -2,12 +2,7 @@ library universal_network_logic;
 
 import 'package:either_dart/either.dart';
 import 'package:retry/retry.dart';
-import 'package:universal_network_logic/src/error/cache_error.dart';
-import 'package:universal_network_logic/src/error/network_error.dart';
-import 'package:universal_network_logic/src/error/parsing_error.dart';
-import 'package:universal_network_logic/src/model/read_cache_strategy.dart';
-import 'package:universal_network_logic/src/model/response.dart';
-import 'package:universal_network_logic/src/read_request.dart';
+import 'package:universal_network_logic/universal_network_logic.dart';
 
 class NetworkLogic {
   final ReadCacheStrategy defaultReadCacheStrategy;
@@ -15,12 +10,14 @@ class NetworkLogic {
 
   final NetworkError Function(dynamic exception)? defaultNetworkCallExceptionTranslator;
 
-  //TODO: MetaInterceptor or broadcast stream would be helpful, to define a global listener to long requests
+  //if given, the [responseHook] is invoked with every [Response]
+  final void Function<T>(Response<T> response)? responseHook;
 
   NetworkLogic({
     this.defaultRetryOptions,
     this.defaultReadCacheStrategy = ReadCacheStrategy.cacheFirst,
     this.defaultNetworkCallExceptionTranslator,
+    this.responseHook,
   });
 
   Future<Response<T>> readRequest<T>(
@@ -42,6 +39,7 @@ class NetworkLogic {
       parserFunction: parserFunction,
       cacheStragegy: cacheStrategy ?? defaultReadCacheStrategy,
       retryOptions: retryOptions ?? defaultRetryOptions,
+      responseHook: responseHook,
     );
 
     return await request();
