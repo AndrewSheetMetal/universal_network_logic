@@ -32,7 +32,7 @@ class ReadRequest<T> {
   final RetryOptions? retryOptions;
 
   //if given, the [responseHook] is invoked with every [Response]
-  final void Function<T>(Response<T> response)? responseHook;
+  final void Function(Response response)? responseHook;
 
   //TODO: Ignore Expired, if network fails
 

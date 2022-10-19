@@ -11,7 +11,7 @@ class NetworkLogic {
   final NetworkError Function(dynamic exception)? defaultNetworkCallExceptionTranslator;
 
   //if given, the [responseHook] is invoked with every [Response]
-  final void Function<T>(Response<T> response)? responseHook;
+  final void Function(Response response)? responseHook;
 
   NetworkLogic({
     this.defaultRetryOptions,
