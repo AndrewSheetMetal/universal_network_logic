@@ -28,4 +28,7 @@ class NetworkMetaInformations extends ResponseMetaInformation {
   }) {
     onNetworkMetaInfo(requestDuration);
   }
+
+  @override
+  String toString() => 'NetworkMetaInformations(requestDuration: $requestDuration)';
 }
